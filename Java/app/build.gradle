@@ -1,0 +1,95 @@
+apply plugin: 'com.android.application'
+
+apply from: 'utils.gradle'
+
+def prodVersion = 1
+def devVersion = 1
+
+def prodVersionName = "1.0.0"
+def devVersionName = prodVersionName + "-snap" + devVersion
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
+    flavorDimensions "default"
+
+    defaultConfig {
+        applicationId "software.rsquared.template"
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        release {
+            readLocalProperties()
+            try {
+                storeFile file(project.KEYSTORE_DIR)
+                storePassword project.KEYSTORE_PASSWORD
+                keyAlias project.ALIAS
+                keyPassword project.KEY_PASSWORD
+            } catch (ignored) {
+                storeFile debug.storeFile
+                storePassword debug.storePassword
+                keyAlias debug.keyAlias
+                keyPassword debug.keyPassword
+                gradle.taskGraph.whenReady { taskGraph ->
+                    println('Warning: Invalid configuration for realease signing.' + project.KEYSTORE_DIR)
+                }
+            }
+        }
+    }
+    buildTypes {
+        debug {
+
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        dev {
+            versionCode devVersion
+            versionName devVersionName
+            applicationId "software.rsquared.testflight.dev"
+        }
+        prod {
+            versionCode prodVersion
+            versionName prodVersionName
+            applicationId "software.rsquared.testflight"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.android.support:support-v4:27.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    implementation 'android.arch.lifecycle:common-java8:1.1.1'
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
+    testImplementation 'android.arch.core:core-testing:1.1.1'
+
+    implementation 'com.google.dagger:dagger:2.15'
+    implementation 'com.google.dagger:dagger-android:2.15'
+    implementation 'com.google.dagger:dagger-android-support:2.15'
+
+    // if you use the support libraries
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.15'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.15'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
