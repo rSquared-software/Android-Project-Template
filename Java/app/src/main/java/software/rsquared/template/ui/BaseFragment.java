@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import software.rsquared.template.binding.ContextDataBindingComponent;
 import software.rsquared.template.utils.AutoClearedValue;
-import software.rsquared.template.utils.InjectableViewModelFragment;
+import software.rsquared.template.utils.ui.InjectableViewModelFragment;
 
 /**
  * Created by rafalo on 17.11.2017.

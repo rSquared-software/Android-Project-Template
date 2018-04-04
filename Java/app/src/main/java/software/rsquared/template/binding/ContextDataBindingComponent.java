@@ -35,8 +35,8 @@ public class ContextDataBindingComponent implements DataBindingComponent {
 		this.adapter = new ContextBindingAdapters(activity);
 	}
 
-	@Override
-	public ContextBindingAdapters getContextBindingAdapters() {
-		return adapter;
-	}
+//	@Override
+//	public ContextBindingAdapters getContextBindingAdapters() {
+//		return adapter;
+//	}
 }

@@ -1,4 +1,4 @@
-package software.rsquared.template.utils;
+package software.rsquared.template.utils.ui;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
@@ -13,6 +13,7 @@ import java.lang.reflect.ParameterizedType;
 import javax.inject.Inject;
 
 import software.rsquared.template.di.Injectable;
+import software.rsquared.template.utils.AutoClearedValue;
 
 public abstract class AppCompatViewModelActivity<VM extends ViewModel> extends AppCompatActivity implements Injectable {
 

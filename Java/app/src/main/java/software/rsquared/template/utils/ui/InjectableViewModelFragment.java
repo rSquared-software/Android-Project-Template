@@ -1,4 +1,4 @@
-package software.rsquared.template.utils;
+package software.rsquared.template.utils.ui;
 
 
 import android.arch.lifecycle.ViewModel;
@@ -34,6 +34,11 @@ public abstract class InjectableViewModelFragment<VM extends ViewModel> extends 
         return vmClass;
     }
 
+    /**
+     * <p>Override returning true when Fragment should use ViewModel associated with it's Activity.</p>
+     *
+     * @return false
+     */
     protected boolean useActivityViewModel() {
         return false;
     }

@@ -15,13 +15,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.wooopit.restaurant.binding.ContextDataBindingComponent;
-import com.wooopit.restaurant.di.Injectable;
-import com.wooopit.restaurant.utils.AutoClearedValue;
-
 import java.lang.reflect.ParameterizedType;
 
 import javax.inject.Inject;
+
+import software.rsquared.template.binding.ContextDataBindingComponent;
+import software.rsquared.template.di.Injectable;
+import software.rsquared.template.utils.AutoClearedValue;
 
 /**
  * @author rSquared.software

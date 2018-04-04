@@ -1,15 +1,28 @@
 package software.rsquared.template.ui.main;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import software.rsquared.template.R;
+import software.rsquared.template.databinding.ActivityMainBinding;
+import software.rsquared.template.ui.BaseFragmentActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseFragmentActivity<ActivityMainBinding> {
+
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.activity_main;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    }
+
+    public interface Callback {
+
+        void onShowFragment();
+
+        void onShowPagerSample();
+
     }
 }

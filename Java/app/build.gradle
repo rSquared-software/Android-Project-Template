@@ -53,12 +53,12 @@ android {
         dev {
             versionCode devVersion
             versionName devVersionName
-            applicationId "software.rsquared.testflight.dev"
+            applicationId "software.rsquared.template.dev"
         }
         prod {
             versionCode prodVersion
             versionName prodVersionName
-            applicationId "software.rsquared.testflight"
+            applicationId "software.rsquared.template"
         }
     }
     compileOptions {

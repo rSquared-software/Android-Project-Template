@@ -1,4 +1,4 @@
-package software.rsquared.template.utils;
+package software.rsquared.template.utils.ui;
 
 import android.arch.lifecycle.ViewModel;
 import android.support.v4.app.Fragment;

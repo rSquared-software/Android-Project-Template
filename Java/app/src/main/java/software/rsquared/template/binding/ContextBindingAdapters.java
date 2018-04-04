@@ -13,11 +13,6 @@ import android.widget.Spinner;
 /**
  * Created by rafalo on 16.11.2017.
  */
-
-@InverseBindingMethods({
-        @InverseBindingMethod(type = Spinner.class,
-                attribute = "selectedItemPosition")
-})
 public class ContextBindingAdapters {
 
     private final Activity activity;

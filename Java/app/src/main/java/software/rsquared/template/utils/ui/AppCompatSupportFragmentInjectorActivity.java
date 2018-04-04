@@ -1,4 +1,4 @@
-package software.rsquared.template.utils;
+package software.rsquared.template.utils.ui;
 
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;

@@ -9,7 +9,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 
 import software.rsquared.template.binding.ContextDataBindingComponent;
-import software.rsquared.template.utils.AppCompatViewModelActivity;
+import software.rsquared.template.utils.ui.AppCompatViewModelActivity;
 import software.rsquared.template.utils.AutoClearedValue;
 
 /**

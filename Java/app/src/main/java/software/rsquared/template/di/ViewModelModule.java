@@ -1,9 +1,13 @@
 package software.rsquared.template.di;
 
+import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
 import dagger.Binds;
 import dagger.Module;
+import dagger.multibindings.IntoMap;
+import software.rsquared.template.ui.sample_act.SampleViewModel;
+import software.rsquared.template.ui.pager.PagerViewModel;
 
 /**
  * @author rSquared.software
@@ -11,15 +15,15 @@ import dagger.Module;
 @Module
 abstract class ViewModelModule {
 
-//	@Binds
-//	@IntoMap
-//	@ViewModelKey(LogInViewModel.class)
-//	abstract ViewModel bindLogInViewModel(LogInViewModel logInViewModel);
-//
-//	@Binds
-//	@IntoMap
-//	@ViewModelKey(MainViewModel.class)
-//	abstract ViewModel bindMainViewModel(MainViewModel mainViewModel);
+    @Binds
+    @IntoMap
+    @ViewModelKey(PagerViewModel.class)
+    abstract ViewModel bindPagerViewModel(PagerViewModel pagerViewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SampleViewModel.class)
+    abstract ViewModel bindSampleViewModel(SampleViewModel sampleViewModel);
 
     @Binds
     abstract ViewModelProvider.Factory bindViewModelFactory(ViewModelFactory factory);
