@@ -6,7 +6,7 @@ import android.arch.lifecycle.ViewModelProvider;
 import dagger.Binds;
 import dagger.Module;
 import dagger.multibindings.IntoMap;
-import software.rsquared.template.ui.sample_act.SampleViewModel;
+import software.rsquared.template.ui.simple.SampleFragment.SampleViewModel;
 import software.rsquared.template.ui.pager.PagerViewModel;
 
 /**

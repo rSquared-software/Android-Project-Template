@@ -2,8 +2,13 @@ package software.rsquared.template.utils.navigation;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.annotation.IdRes;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 
 
 /**
@@ -13,9 +18,9 @@ public abstract class BaseNavigationController implements NavigationController {
 
     protected final FragmentManager fragmentManager;
 
-    protected final FragmentActivity activity;
+    protected final AppCompatActivity activity;
 
-    public BaseNavigationController(FragmentActivity activity) {
+    public BaseNavigationController(AppCompatActivity activity) {
         this.fragmentManager = activity.getSupportFragmentManager();
         this.activity = activity;
     }
@@ -42,5 +47,21 @@ public abstract class BaseNavigationController implements NavigationController {
             filler.putExtras(intent);
         }
         return StartActivityBuilder.create(activityClass, intent);
+    }
+
+
+    protected void open(@IdRes int idRes, Fragment fragment, ReplacePolicy replacePolicy, BackStackPolicy backStackPolicy) {
+        @Nullable
+        Fragment fragmentById = fragmentManager.findFragmentById(idRes);
+        if (fragmentById == null || replacePolicy.allowReplace(fragmentById)) {
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+            if (backStackPolicy.addToBackStack(fragmentById)) {
+                transaction.addToBackStack(null);
+            }
+            transaction.replace(idRes, fragment);
+            transaction.setReorderingAllowed(true);
+            transaction.commitAllowingStateLoss();
+        }
     }
 }

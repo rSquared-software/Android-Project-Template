@@ -16,6 +16,18 @@ public class MainActivity extends BaseFragmentActivity<ActivityMainBinding> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        binding.get().setCallback(new Callback() {
+            @Override
+            public void onShowFragment() {
+
+            }
+
+            @Override
+            public void onShowPagerSample() {
+
+            }
+        });
     }
 
     public interface Callback {

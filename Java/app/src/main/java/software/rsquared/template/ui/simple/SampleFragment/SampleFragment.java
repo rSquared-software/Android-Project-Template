@@ -1,4 +1,4 @@
-package software.rsquared.template.ui.sample_act;
+package software.rsquared.template.ui.simple.SampleFragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -114,7 +114,7 @@ def manageApk(appName) {
 
 def readLocalProperties() {
     Properties properties = new Properties()
-    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())//todo move to keystore.properties
 
     project.ext.set("KEYSTORE_DIR", properties.getProperty('KEYSTORE_DIR'))
     project.ext.set("KEYSTORE_PASSWORD", properties.getProperty('KEYSTORE_PASSWORD'))

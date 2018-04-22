@@ -1,10 +1,8 @@
 package software.rsquared.template.utils.navigation;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 
 import software.rsquared.template.R;
 
@@ -13,7 +11,7 @@ public abstract class PortraitNavigationController extends BaseNavigationControl
 
     protected final int containerId;
 
-    protected PortraitNavigationController(FragmentActivity activity) {
+    public PortraitNavigationController(AppCompatActivity activity) {
         super(activity);
         this.containerId = R.id.fragment_container;
     }
@@ -63,17 +61,6 @@ public abstract class PortraitNavigationController extends BaseNavigationControl
     }
 
     protected void open(Fragment fragment, ReplacePolicy replacePolicy, BackStackPolicy backStackPolicy) {
-        @Nullable
-        Fragment fragmentById = fragmentManager.findFragmentById(containerId);
-        if (fragmentById == null || replacePolicy.allowReplace(fragmentById)) {
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-
-            if (backStackPolicy.addToBackStack(fragmentById)) {
-                transaction.addToBackStack(null);
-            }
-            transaction.replace(containerId, fragment);
-            transaction.setReorderingAllowed(true);
-            transaction.commitAllowingStateLoss();
-        }
+        open(containerId, fragment, replacePolicy, backStackPolicy);
     }
 }

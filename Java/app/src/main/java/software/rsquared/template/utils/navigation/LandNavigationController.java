@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import software.rsquared.template.R;
@@ -12,17 +13,17 @@ import software.rsquared.template.R;
 
 public abstract class LandNavigationController extends BaseNavigationController {
 
-    protected final int containerId;
-    protected final int secondContainerId;
+    protected final int mainContainerId;
+    protected final int secondaryContainerId;
 
-    protected LandNavigationController(FragmentActivity activity) {
+    public LandNavigationController(AppCompatActivity activity) {
         super(activity);
-        this.containerId = R.id.fragment_container;
-        this.secondContainerId = R.id.fragment_container;
+        this.mainContainerId = R.id.fragment_container;
+        this.secondaryContainerId = R.id.fragment_container;
     }
 
-    protected synchronized void showSecondFragment(boolean show) {
-        View view = activity.findViewById(secondContainerId);
+    protected synchronized void showSecondaryFragment(boolean show) {
+        View view = activity.findViewById(secondaryContainerId);
         if (view != null) {
             int visibility = show ? View.VISIBLE : View.GONE;
             if (view.getVisibility() != visibility) {
@@ -33,7 +34,7 @@ public abstract class LandNavigationController extends BaseNavigationController 
 
     @Override
     public void cleanup() {
-        Fragment fragment = fragmentManager.findFragmentById(secondContainerId);
+        Fragment fragment = fragmentManager.findFragmentById(secondaryContainerId);
         if (fragment != null) {
             fragmentManager.beginTransaction().remove(fragment).commitAllowingStateLoss();
         }
@@ -43,7 +44,7 @@ public abstract class LandNavigationController extends BaseNavigationController 
         openFragment(factory, f -> true, f -> true);
     }
 
-    protected void openSecondFragment(FragmentFactory factory) {
+    protected void openSecondaryFragment(FragmentFactory factory) {
         openFragment(factory, f -> true, f -> true);
     }
 
@@ -59,7 +60,7 @@ public abstract class LandNavigationController extends BaseNavigationController 
         }
     }
 
-    protected void openSecondFragment(FragmentFactory factory, ArgumentsFiller filler) {
+    protected void openSecondaryFragment(FragmentFactory factory, ArgumentsFiller filler) {
         if (!activity.isDestroyed()) {
             final Fragment fragment = factory.getFragment();
             if (filler != null) {
@@ -67,7 +68,7 @@ public abstract class LandNavigationController extends BaseNavigationController 
                 filler.putExtras(args);
                 fragment.setArguments(args);
             }
-            openSecond(fragment);
+            openSecondary(fragment);
         }
     }
 
@@ -83,7 +84,7 @@ public abstract class LandNavigationController extends BaseNavigationController 
         }
     }
 
-    protected void openSecondFragment(FragmentFactory factory, ArgumentsFiller filler, ReplacePolicy replacePolicy, BackStackPolicy backStackPolicy) {
+    protected void openSecondaryFragment(FragmentFactory factory, ArgumentsFiller filler, ReplacePolicy replacePolicy, BackStackPolicy backStackPolicy) {
         if (!activity.isDestroyed()) {
             final Fragment fragment = factory.getFragment();
             if (filler != null) {
@@ -91,7 +92,7 @@ public abstract class LandNavigationController extends BaseNavigationController 
                 filler.putExtras(args);
                 fragment.setArguments(args);
             }
-            openSecond(fragment, replacePolicy, backStackPolicy);
+            openSecondary(fragment, replacePolicy, backStackPolicy);
         }
     }
 
@@ -103,11 +104,11 @@ public abstract class LandNavigationController extends BaseNavigationController 
         }
     }
 
-    protected void openSecondFragment(FragmentFactory factory, ReplacePolicy replacePolicy, BackStackPolicy backStackPolicy) {
+    protected void openSecondaryFragment(FragmentFactory factory, ReplacePolicy replacePolicy, BackStackPolicy backStackPolicy) {
         if (!activity.isDestroyed()) {
             final Fragment fragment = factory.getFragment();
 
-            openSecond(fragment, replacePolicy, backStackPolicy);
+            openSecondary(fragment, replacePolicy, backStackPolicy);
         }
     }
 
@@ -116,37 +117,15 @@ public abstract class LandNavigationController extends BaseNavigationController 
     }
 
     protected void open(Fragment fragment, ReplacePolicy replacePolicy, BackStackPolicy backStackPolicy) {
-        @Nullable
-        Fragment fragmentById = fragmentManager.findFragmentById(containerId);
-        if (fragmentById == null || replacePolicy.allowReplace(fragmentById)) {
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-
-            if (backStackPolicy.addToBackStack(fragmentById)) {
-                transaction.addToBackStack(null);
-            }
-            transaction.replace(containerId, fragment);
-            transaction.setReorderingAllowed(true);
-            transaction.commitAllowingStateLoss();
-        }
+        open(mainContainerId, fragment, replacePolicy, backStackPolicy);
     }
 
-    protected void openSecond(Fragment fragment) {
-        openSecond(fragment, frag -> true, fr -> false);
+    protected void openSecondary(Fragment fragment) {
+        openSecondary(fragment, frag -> true, fr -> false);
     }
 
-    protected void openSecond(Fragment fragment, ReplacePolicy replacePolicy, BackStackPolicy backStackPolicy) {
-        @Nullable
-        Fragment fragmentById = fragmentManager.findFragmentById(secondContainerId);
-        if (fragmentById == null || replacePolicy.allowReplace(fragmentById)) {
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-
-            if (backStackPolicy.addToBackStack(fragmentById)) {
-                transaction.addToBackStack(null);
-            }
-            transaction.replace(secondContainerId, fragment);
-            transaction.setReorderingAllowed(true);
-            transaction.commitAllowingStateLoss();
-        }
+    protected void openSecondary(Fragment fragment, ReplacePolicy replacePolicy, BackStackPolicy backStackPolicy) {
+        open(secondaryContainerId, fragment, replacePolicy, backStackPolicy);
     }
 
 }
