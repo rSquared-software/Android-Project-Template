@@ -7,8 +7,6 @@ import java.util.concurrent.Executors
 import javax.inject.Inject
 
 class AppExecutors @Inject constructor() {
-
-
     val diskIO: Executor = Executors.newSingleThreadExecutor()
     val networkIO: Executor = Executors.newFixedThreadPool(3)
     val mainThread: Executor = object : Executor {
@@ -18,5 +16,4 @@ class AppExecutors @Inject constructor() {
             mainThreadHandler.post(command)
         }
     }
-
 }

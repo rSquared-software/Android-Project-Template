@@ -4,6 +4,8 @@ import android.support.annotation.IdRes
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentTransaction
+import android.view.View
 
 abstract class BaseNavigationController constructor(activity: FragmentActivity) : NavigationController {
 
@@ -20,34 +22,29 @@ abstract class BaseNavigationController constructor(activity: FragmentActivity) 
         }
     }
 
-    protected fun open(@IdRes idRes: Int, fragment: Fragment, replacePolicy: ReplacePolicy, backStackPolicy: BackStackPolicy) {
-        val fragmentById = fragmentManager.findFragmentById(idRes)
-        if (fragmentById == null || replacePolicy.allowReplace(fragmentById)) {
+    protected fun open(@IdRes idRes: Int, fragment: Fragment, addToBackStack: (Fragment?) -> Boolean, allowReplace: (Fragment?) -> Boolean, onReplaceDenied: (Fragment?) -> Unit) {
+        val fragmentById: Fragment? = fragmentManager.findFragmentById(idRes)
+        if (fragmentById == null || allowReplace(fragmentById)) {
             val transaction = fragmentManager.beginTransaction()
 
-//            val sharedViews = extractSharedViews(fragmentById)
-//            addSharedViewsToTransaction(transaction, sharedViews)
+            if (fragmentById is ContainsTransitionViews) {
+                transaction.addSharedElements(fragmentById.getTransitionViews())
+            }
 
-            if (backStackPolicy.addToBackStack(fragmentById)) {
+            if (addToBackStack(fragmentById)) {
                 transaction.addToBackStack(null)
             }
             transaction.replace(idRes, fragment)
             transaction.setReorderingAllowed(true)
             transaction.commitAllowingStateLoss()
         } else {
-            replacePolicy.onReplaceDenied(fragmentById)
+            onReplaceDenied(fragmentById)
         }
     }
 
-//    private fun addSharedViewsToTransaction(transaction: FragmentTransaction, sharedViews: List<View>?) {
-//        if (sharedViews != null) {
-//            for (view in sharedViews) {
-//                transaction.addSharedElement(view, ViewCompat.getTransitionName(view))
-//            }
-//        }
-//    }
-//
-//    private fun extractSharedViews(fragmentById: Fragment?): List<View>? {
-//        return if (fragmentById is HasTransitionViews) (fragmentById as HasTransitionViews).getTransitionViews() else null
-//    }
+    private fun FragmentTransaction.addSharedElements(views: List<View>) {
+        views.forEach {
+            this.addSharedElement(it, android.support.v4.view.ViewCompat.getTransitionName(it))
+        }
+    }
 }

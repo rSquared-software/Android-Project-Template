@@ -4,9 +4,9 @@ import android.arch.lifecycle.ViewModel
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
-import software.rsquared.template.utils.ui.ViewModelActivity
+import software.rsquared.template.utils.ui.ViewModelFragmentActivity
 
-abstract class BaseVmActivity<VM : ViewModel, VDB : ViewDataBinding> : ViewModelActivity<VM>() {
+abstract class BaseVmFragmentActivity<VM : ViewModel, VDB : ViewDataBinding> : ViewModelFragmentActivity<VM>() {
 
     lateinit var binding: VDB
 
@@ -15,5 +15,6 @@ abstract class BaseVmActivity<VM : ViewModel, VDB : ViewDataBinding> : ViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutRes)
+
     }
 }

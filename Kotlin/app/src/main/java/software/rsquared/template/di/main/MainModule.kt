@@ -1,4 +1,4 @@
-package software.rsquared.template.di
+package software.rsquared.template.di.main
 
 import dagger.Module
 import dagger.Provides

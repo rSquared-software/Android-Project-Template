@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.annotation.CallSuper
+import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import software.rsquared.template.di.Injectable
 import java.lang.reflect.ParameterizedType
@@ -13,7 +14,7 @@ import javax.inject.Inject
 /**
  * An injectable fragment with build in view model
  */
-abstract class ViewModelFragment<VM : ViewModel> : Fragment(), Injectable {
+abstract class ViewModelDialogFragment<VM : ViewModel> : DialogFragment(), Injectable {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory

@@ -2,8 +2,8 @@ package software.rsquared.template.utils.navigation
 
 import android.view.View
 
-interface HasTransitionViews {
+interface ContainsTransitionViews {
 
-    fun getTransitionViews(): List<View>?
+    fun getTransitionViews(): List<View>
 
 }

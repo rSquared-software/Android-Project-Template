@@ -3,6 +3,7 @@ package software.rsquared.template.utils.ui
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import software.rsquared.template.di.Injectable
@@ -17,7 +18,7 @@ abstract class ViewModelActivity<VM : ViewModel> : FragmentActivity(), Injectabl
     @Inject
     protected lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    internal lateinit var viewModel: VM
+    lateinit var viewModel: VM
 
     @Suppress("UNCHECKED_CAST")
     private fun getViewModelType(): Class<VM> {
@@ -29,6 +30,11 @@ abstract class ViewModelActivity<VM : ViewModel> : FragmentActivity(), Injectabl
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this, viewModelFactory)[getViewModelType()]
+    }
+
+
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
 }

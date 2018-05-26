@@ -15,12 +15,10 @@ abstract class BaseFragment<VM : ViewModel, VDB : ViewDataBinding> : ViewModelFr
 
     lateinit var binding: AutoClearedValue<VDB>
 
-    @LayoutRes
-    abstract fun getLayoutRes(): Int
+    abstract val layoutRes: Int
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-//        val dataBinding = DataBindingUtil.inflate<VDB>(inflater, getLayoutRes(), container, false, dataBindingComponent)
-        val dataBinding = DataBindingUtil.inflate<VDB>(inflater, getLayoutRes(), container, false)
+        val dataBinding = DataBindingUtil.inflate<VDB>(inflater, layoutRes, container, false)
         binding = AutoClearedValue(this, dataBinding)
         return dataBinding.root
     }

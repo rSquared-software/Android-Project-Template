@@ -4,5 +4,5 @@ interface NavigationController {
 
     fun goBack(): Boolean
 
-    fun cleanup()
+    fun cleanup() {}
 }
