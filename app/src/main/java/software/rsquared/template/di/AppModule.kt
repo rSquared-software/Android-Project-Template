@@ -4,18 +4,22 @@ import android.app.Application
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
+import software.rsquared.template.ThisApp
 
 /**
  * @author Rafal Orlik
  */
-@Module(includes = [ViewModelModule::class])
+@Module(includes = [])
 internal class AppModule {
 
-    @Provides
-    @Singleton
-    fun provideAppContext(application: Application): Context {
-        return application
-    }
+	@Provides
+	fun provideAppContext(application: ThisApp): Context {
+		return application
+	}
+
+	@Provides
+	fun provideApplication(application: ThisApp): Application {
+		return application
+	}
 
 }
