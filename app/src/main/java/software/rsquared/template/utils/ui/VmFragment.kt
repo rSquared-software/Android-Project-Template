@@ -13,7 +13,7 @@ import javax.inject.Inject
 /**
  * An injectable fragment with build in view model
  */
-abstract class ViewModelFragment<VM : ViewModel> : DaggerFragment() {
+abstract class VmFragment<VM : ViewModel> : DaggerFragment() {
 
 	@Inject
 	lateinit var viewModelFactory: ViewModelProvider.Factory

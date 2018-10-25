@@ -4,12 +4,12 @@ import android.content.Context
 import androidx.multidex.MultiDex
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
+import software.rsquared.template.di.DaggerAppComponent
 
 class ThisApp : DaggerApplication() {
 
 	override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-		TODO("uncomment")
-//		return DaggerAppComponent.builder().create(this)
+		return DaggerAppComponent.builder().create(this)
 	}
 
 	override fun attachBaseContext(base: Context) {

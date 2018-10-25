@@ -10,16 +10,14 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import software.rsquared.template.utils.AutoClearedValue
-import software.rsquared.template.utils.ui.ViewModelActivity
-import software.rsquared.template.utils.ui.ViewModelDialogFragment
+import software.rsquared.template.utils.ui.VmActivity
+import software.rsquared.template.utils.ui.VmDialogFragment
 
-abstract class BaseDialogFragment<VM : ViewModel, VDB : ViewDataBinding> : ViewModelDialogFragment<VM>() {
+abstract class BaseDialogFragment<VM : ViewModel, VDB : ViewDataBinding> : VmDialogFragment<VM>() {
 
 	lateinit var binding: AutoClearedValue<VDB>
 
 	abstract val layoutRes: Int
-
-//    open val dialogTheme: Int = R.style.AppTheme_Dialog
 
 	var fragmentResult: Boolean = false
 
@@ -27,6 +25,7 @@ abstract class BaseDialogFragment<VM : ViewModel, VDB : ViewDataBinding> : ViewM
 
 	override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 		val dataBinding = DataBindingUtil.inflate<VDB>(LayoutInflater.from(context), layoutRes, null, false)
+		dataBinding.setLifecycleOwner(this)
 		binding = AutoClearedValue(this, dataBinding)
 		val builder = AlertDialog.Builder(context!!).setView(dataBinding.root)
 		buildDialog(builder, savedInstanceState)
@@ -54,8 +53,8 @@ abstract class BaseDialogFragment<VM : ViewModel, VDB : ViewDataBinding> : ViewM
 	fun setResult(resultCode: Int, data: Intent) {
 		if (fragmentResult) {
 			targetFragment?.onActivityResult(requestCode, resultCode, data)
-		} else if (activity is ViewModelActivity<*>) {
-			(activity as ViewModelActivity<*>).onActivityResult(requestCode, resultCode, data)
+		} else if (activity is VmActivity<*>) {
+			(activity as VmActivity<*>).onActivityResult(requestCode, resultCode, data)
 		}
 	}
 }

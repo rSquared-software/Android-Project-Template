@@ -14,7 +14,7 @@ import javax.inject.Inject
 /**
  * An injectable activity with build in view model
  */
-abstract class ViewModelActivity<VM : ViewModel> : DaggerAppCompatActivity() {
+abstract class VmActivity<VM : ViewModel> : DaggerAppCompatActivity() {
 
 	init {
 		AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
@@ -23,7 +23,7 @@ abstract class ViewModelActivity<VM : ViewModel> : DaggerAppCompatActivity() {
 	@Inject
 	lateinit var viewModelFactory: ViewModelProvider.Factory
 
-	lateinit var viewModel: VM
+	protected lateinit var viewModel: VM
 
 	@Suppress("UNCHECKED_CAST")
 	private fun getViewModelType(): Class<VM> {

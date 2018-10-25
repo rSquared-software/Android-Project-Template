@@ -1,45 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools">
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
 
 	<data>
 
+		<variable
+			name="viewModel"
+			type="software.rsquared.template.ui.main.MainViewModel"/>
+
 	</data>
 
-	<androidx.constraintlayout.widget.ConstraintLayout
+	<androidx.coordinatorlayout.widget.CoordinatorLayout
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		tools:context=".ui.main.MainActivity">
+		android:layout_height="match_parent">
 
-		<EditText
-			android:id="@+id/input_text"
-			android:layout_width="0dp"
+		<FrameLayout
+			android:id="@+id/content"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+
+		</FrameLayout>
+
+		<!-- Bottom App Bar -->
+
+		<com.google.android.material.bottomappbar.BottomAppBar
+			android:id="@+id/bar"
+			style="@style/Widget.MaterialComponents.BottomAppBar"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_margin="8dp"
-			android:inputType="text"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent" />
+			android:layout_gravity="bottom"
 
-		<Button
+			app:backgroundTint="@color/colorPrimary"
+			app:navigationIcon="@drawable/ic_menu_white_24"/>
+
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/fab"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginEnd="16dp"
-			android:text="Delay post"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/input_text" />
+			android:visibility="gone"
+			app:fabSize="normal"
+			app:layout_anchor="@+id/bar"/>
 
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@{`Hello World!`}"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			tools:text="Hello World!" />
-
-	</androidx.constraintlayout.widget.ConstraintLayout>
+	</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>
